@@ -12,12 +12,14 @@ public class player_controler : MonoBehaviour
     private Transform gunLeft, gunRight;
     private Rigidbody rb;
     private Vector2 controlls;
+    private camera_Script cs;
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         gunLeft = transform.Find("gunLeft");
         gunRight = transform.Find("gunRight");
+        cs = Camera.main.GetComponent<camera_Script>();
     }
 
     // Update is called once per frame
@@ -28,14 +30,17 @@ public class player_controler : MonoBehaviour
         v = Input.GetAxis("Vertical");
         h = Input.GetAxis("Horizontal");
         controlls = new Vector2(h, v);
-        if(Mathf.Abs(transform.position.x) > 19)
+
+        float maxHorizontal = cs.worldWidth / 2;
+        float maxVertical = cs.worldHeight / 2;
+        if(Mathf.Abs(transform.position.x) > maxHorizontal)
         {
-            Vector3 newPosition = new Vector3(transform.position.x * -1, 0, transform.position.y);
+            Vector3 newPosition = new Vector3(transform.position.x * -0.95f, 0, transform.position.y);
            transform.position = newPosition;
         }
-        if(Mathf.Abs(transform.position.z) > 9)
+        if(Mathf.Abs(transform.position.z) > maxVertical)
         {
-            Vector3 newPosition = new Vector3(transform.position.x, 0, transform.position.z * -1);
+            Vector3 newPosition = new Vector3(transform.position.x, 0, transform.position.z * -0.95f);
             transform.position = newPosition;
 
         }
