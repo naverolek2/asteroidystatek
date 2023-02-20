@@ -58,18 +58,27 @@ public class player_controler : MonoBehaviour
         {
             GameObject bullet1 = Instantiate(bulletPrefab, gunLeft.position, Quaternion.identity);
             bullet1.transform.parent = null;
-            bullet1.GetComponent<Rigidbody>().AddForce(transform.forward * 5,
+            bullet1.GetComponent<Rigidbody>().AddForce(transform.forward * 7,
                                                         ForceMode.VelocityChange);
             Destroy(bullet1, 5);
             GameObject bullet2 = Instantiate(bulletPrefab, gunRight.position, Quaternion.identity);
             bullet2.transform.parent = null;
-            bullet2.GetComponent<Rigidbody>().AddForce(transform.forward * 5,
+            bullet2.GetComponent<Rigidbody>().AddForce(transform.forward * 7,
                                                         ForceMode.VelocityChange);
             Destroy(bullet2, 5);
             fireButtonDown = false;
+      
 
+        }
 
-
+    }
+    private void OnCollisionEnter(Collision collision)
+    {
+        GameObject target = collision.gameObject;
+        if (target.CompareTag("Enemy"))
+        {
+            Destroy(target);
+            Destroy(this.gameObject);
         }
 
     }
